@@ -3,6 +3,20 @@ int d[] ={3,2,5,2,4,3};
 int W[6][6];
 int J[6][6];
 
+void Brackets(int i,int k){
+    if(i==k)
+        printf("A[%d]",i);
+    else if(k==i+1)
+        printf("(A[%d],A[%d])",i,k);
+    else{
+        printf("(");
+        Brackets(i,J[i][k]);
+        Brackets(J[i][k]+1,k);
+        printf(")");
+    }
+    return;
+}
+
 int min(int a, int b){
     if(a<b)
         return(a);
@@ -24,8 +38,6 @@ int M(int i,int k){
             }
                 
         }
-        printf("(%d,%d, %d) %d\n",i,jj,k,r);
-
     }
     W[i][k]=r;
     J[i][k]=jj;
@@ -39,8 +51,14 @@ int main(){
     for(i=1;i<6;i++){
         printf("\n");
         for(j=1;j<6;j++)
-            printf("%4d,(j=%d)",W[i][j],J[i][j]);
+            if(j<i)
+                printf("          ");
+            else
+                printf("%4d,(j=%d)",W[i][j],J[i][j]);
     
     }
     printf("\n");
+    Brackets(1,5);
+    printf("\n");
+    
 }
