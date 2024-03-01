@@ -1,4 +1,6 @@
 #include<stdio.h>
+#define n 6
+#define N 5
 
 int S = 0;
 int A = 1;
@@ -7,8 +9,11 @@ int C = 3;
 int a = 4;
 int b = 5;
 
-int CFG[6][6][6]={0};
-int V[5][5][6]={0};
+int CFG[n][n][n]={0};
+int V[N][N][n]={0};
+
+
+
 int main(){
 CFG[A][B][S] = 1;
 CFG[A][B][C] = 1;
@@ -20,25 +25,39 @@ CFG[a][a][C] = 1;
 CFG[b][b][B] = 1;  
 
 int s[]={b,a,a,b,a}; //trial string
-int i,j,k;
-for(i=0;i<5;i++)
-    for(j=0;j<5;j++)
+int i,j,k,l,m,mm;
+for(i=0;i<N;i++)
+    for(j=0;j<n;j++)
         if(CFG[s[i]][s[i]][j]==1)
             V[i][i][j] = 1;  
     
 printf("Diagonal elements, where [S,A,B,C] =[0,1,2,3] are:\n");
-for(i=0;i<5;i++){
+for(i=0;i<N;i++){
     printf("\n");
-    for(j=0;j<5;j++)
+    for(j=0;j<n;j++)
         if(V[i][i][j]==1)
             printf("%d ",j);
 }
+for(mm=1;mm<N;mm++){
 printf("\n");
-for(i=0;i<4;i++)
-    for(j=0;j<5;j++)
-        for(k=0;k<5;k++)
-            if(CFG[V[i][i][j]][V[i+1][i+1][k]]==1){
-                V[i][i+1][j] = 1;
-                V[i][i+1][k] = 1;
-        }
+for(i=0;i<N-1;i++)
+    for(j=0;j<n;j++)
+        for(k=0;k<n;k++)
+            for(l=0;l<n;l++)
+                for(m=0;m<mm;m++)
+                    if(V[i][i+m][j]==1&&V[i+m+1][i+mm][k]==1)
+                        if(CFG[j][k][l]==1)
+                            V[i][i+mm][l] = 1;
+}
+char Var[4]={'S','A','B','C'};
+for(mm=0;mm<N;mm++){
+    printf("elements \n");
+    for(i=0;i<N-mm;i++){
+        printf("(%d %d) {",i,i+mm);
+            for(j=0;j<n;j++)
+                if(V[i][i+mm][j]==1)
+                    printf(" %c",Var[j]);
+    printf("}\n");
+    }
+}
 }
