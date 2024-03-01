@@ -58,7 +58,7 @@ int main(){
     
     }
     printf("\n");
-    Brackets(1,5);
+    Brackets(1,4);
     printf("\n");
     
 }
