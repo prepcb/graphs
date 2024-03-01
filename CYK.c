@@ -9,7 +9,10 @@ int C = 3;
 int a = 4;
 int b = 5;
 
+//CFG contains the grammar
 int CFG[n][n][n]={0};
+
+// V contains the chart of the resulting grammar
 int V[N][N][n]={0};
 
 
@@ -40,14 +43,14 @@ for(i=0;i<N;i++){
 }
 for(mm=1;mm<N;mm++){
 printf("\n");
-for(i=0;i<N-1;i++)
-    for(j=0;j<n;j++)
-        for(k=0;k<n;k++)
-            for(l=0;l<n;l++)
-                for(m=0;m<mm;m++)
-                    if(V[i][i+m][j]==1&&V[i+m+1][i+mm][k]==1)
-                        if(CFG[j][k][l]==1)
-                            V[i][i+mm][l] = 1;
+    for(i=0;i<N-1;i++)
+        for(j=0;j<n;j++)
+            for(k=0;k<n;k++)
+                for(l=0;l<n;l++)
+                    for(m=0;m<mm;m++)
+                        if(V[i][i+m][j]==1&&V[i+m+1][i+mm][k]==1)
+                            if(CFG[j][k][l]==1)
+                                V[i][i+mm][l] = 1;
 }
 char Var[4]={'S','A','B','C'};
 for(mm=0;mm<N;mm++){
