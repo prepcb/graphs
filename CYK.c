@@ -2,12 +2,13 @@
 #define n 6 //variables
 #define N 5 //string length
 
-int S = 0;
-int A = 1;
-int B = 2;
-int C = 3;
-int a = 4;
-int b = 5;
+//Variables are given integers
+#define  S  0
+#define  A  1
+#define  B  2
+#define  C  3
+#define  a  4
+#define  b  5
 
 //CFG contains the grammar
 int CFG[n][n][n]={0};
@@ -17,17 +18,20 @@ int V[N][N][n]={0};
 
 
 int main(){
-CFG[A][B][S] = 1;
-CFG[A][B][C] = 1;
-CFG[B][C][S] = 1;
-CFG[C][C][B] = 1;
-CFG[B][A][A] = 1;
-CFG[a][a][A] = 1;
-CFG[a][a][C] = 1;
-CFG[b][b][B] = 1;  
+
+// Here we set up the Context Free Grammar productions
+// this cannot be done without Chomsky normal form!
+
+CFG[A][B][S] = 1;   // S -> AB
+CFG[A][B][C] = 1;   // C -> AB
+CFG[B][C][S] = 1;   // S -> BC
+CFG[C][C][B] = 1;   // B -> CC
+CFG[B][A][A] = 1;   // A -> BA
+CFG[a][a][A] = 1;   // A -> a   in fact we only use the first slot; see line 43
+CFG[a][a][C] = 1;   // C -> a                   ""
+CFG[b][b][B] = 1;   // B -> b                   ""
 
 int s[]={b,a,a,b,a}; //trial string
-
 
 
 
@@ -40,39 +44,19 @@ for(i=0;i<N;i++)
             V[i][i][j] = 1;  
 char Var[4]={'S','A','B','C'};
 
-for(k=0;k<N;k++)
-    for(i=0;i<n-k-1;i++){
+for(k=0;k<N;k++) //N string length
+    for(i=0;i<N-k-1;i++){
         j=i+1+k;
-        for(m=i;m<j;m++)
-            for(p=0;p<N;p++)
-                for(q=0;q<N;q++)
+        for(m=i;m<j;m++) //m is the middle index
+            for(p=0;p<n;p++) //n : number of variables
+                for(q=0;q<n;q++)
                     if(V[i][m][p]==1&&V[m+1][j][q]==1)
                         for(r=0;r<N;r++)
-                            if(CFG[p][q][r]==1){
-                                V[i][j][r]=1;
-
-                                //start: next bit only lets S be in the final V(0,N-1) position
-                                if(i==0&j==N-1){
-                                }
-                                else if(r==S)
-                                    V[i][j][r]=0;
-                                // end:
-                            }
+                            if(CFG[p][q][r]==1)
+                                V[i][j][r]=1; //add the value, r, in table
     }
 
 
-/*
-for(mm=1;mm<N;mm++){
-printf("\n");
-    for(i=0;i<N-1;i++)
-        for(j=0;j<n;j++)
-            for(k=0;k<n;k++)
-                for(l=0;l<n;l++)
-                    for(m=0;m<mm;m++)
-                        if(V[i][i+m][j]==1&&V[i+m+1][i+mm][k]==1)
-                            if(CFG[j][k][l]==1)
-                                V[i][i+mm][l] = 1;
-}*/
 for(k=0;k<N;k++){
     printf("elements \n");
     for(i=0;i<N-k;i++){
