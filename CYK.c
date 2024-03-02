@@ -42,7 +42,7 @@ for(i=0;i<N;i++)
     for(j=0;j<n;j++)
         if(CFG[s[i]][s[i]][j]==1)
             V[i][i][j] = 1;  
-char Var[4]={'S','A','B','C'};
+char Var[4]={'S','A','B','C'}; // used for printing
 
 for(k=0;k<N;k++) //N string length
     for(i=0;i<N-k-1;i++){
