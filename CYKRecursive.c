@@ -15,7 +15,13 @@ int CFG[n][n][n]={0};
 // V contains the chart of the resulting grammar
 int V[N][N][n]={0};
 
-
+void G(int i,int j,int V[N][N][n],CFG[n][n][n]){
+    int m;
+    if(i==j)
+        if(CFG[i][j][m]=1{
+        V[i][i][CFG[i][m]]=1 
+    }
+}
 
 int main(){
 CFG[A][B][S] = 1;
