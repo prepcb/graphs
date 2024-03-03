@@ -1,7 +1,9 @@
 /*
 CYK algorithm using a recursive call
 
-The grammar and the string are fixed
+The grammar and the string are fixed.
+
+The algorithm only finds the first viable path - better than the psuedo code!
 
 
 */
@@ -19,7 +21,7 @@ The grammar and the string are fixed
 #define  a  4
 #define  b  5
 
-char Var[] = {'S','A','B','C'};
+char Var[] = {'S','A','B','C'}; // for printing purposes
 
 //CFG contains the grammar
 int CFG[n][n][n]={0};
@@ -32,17 +34,22 @@ int s[]={b,a,a,b,a}; //trial string
 int V(int i,int j,int k){
     int m,p,q;
     if(i==j)
-        if(CFG[s[i]][s[i]][k]==1)
+        if(CFG[s[i]][s[i]][k]==1){
+            printf("V(%d,%d) = %c\n",i,i,Var[k]);
             return(1);
+        }
         else
             return(0);
     else
             for(p=0;p<n-2;p++)
                 for(q=0;q<n-2;q++)
-                    if(CFG[p][q][k]==1)
+                    if(CFG[p][q][k]==1) //check all places in the grammar with an entry
                         for(m=i;m<j;m++)
                             if(V(i,m,p)==1&&V(m+1,j,q)==1)
-                                return(1);
+                                {
+                                    printf("V(%d,%d) = %c\n",i,j,Var[k]);
+                                    return(1);
+                                }
     return(0);
 }
 
@@ -66,7 +73,8 @@ CFG[b][b][B] = 1;   // B -> b                   ""
 int i,j,k,l,m;
 
 
-
+/*
+// This reproduces the whole table
     for(k=0;k<N;k++)
     for(i=0;i<N-k;i++){
         printf("(%d,%d)",i,i+k);
@@ -75,7 +83,7 @@ int i,j,k,l,m;
                 printf("%c ",Var[j]);
         printf("\n");
     }
-   
+  */ 
 
 
 
