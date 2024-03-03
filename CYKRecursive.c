@@ -1,3 +1,12 @@
+/*
+CYK algorithm using a recursive call
+
+The grammar and the string are fixed
+
+
+*/
+
+
 #include<stdio.h>
 #define n 6 //variables
 #define N 5 //string length
@@ -10,11 +19,32 @@
 #define  a  4
 #define  b  5
 
+char Var[] = {'S','A','B','C'};
+
 //CFG contains the grammar
 int CFG[n][n][n]={0};
 
+int s[]={b,a,a,b,a}; //trial string
+
+
 // V contains the chart of the resulting grammar
-int V[N][N][n]={0};
+
+int V(int i,int j,int k){
+    int m,p,q;
+    if(i==j)
+        if(CFG[s[i]][s[i]][k]==1)
+            return(1);
+        else
+            return(0);
+    else
+            for(p=0;p<n-2;p++)
+                for(q=0;q<n-2;q++)
+                    if(CFG[p][q][k]==1)
+                        for(m=i;m<j;m++)
+                            if(V(i,m,p)==1&&V(m+1,j,q)==1)
+                                return(1);
+    return(0);
+}
 
 
 int main(){
@@ -31,40 +61,26 @@ CFG[a][a][A] = 1;   // A -> a   in fact we only use the first slot; see line 43
 CFG[a][a][C] = 1;   // C -> a                   ""
 CFG[b][b][B] = 1;   // B -> b                   ""
 
-int s[]={b,a,a,b,a}; //trial string
+
+
+int i,j,k,l,m;
 
 
 
-int i,j,k,m,p,q,r;
-
-
-for(i=0;i<N;i++)
-    for(j=0;j<n;j++)
-        if(CFG[s[i]][s[i]][j]==1)
-            V[i][i][j] = 1;  
-char Var[4]={'S','A','B','C'}; // used for printing
-
-for(k=0;k<N;k++) //N string length
-    for(i=0;i<N-k-1;i++){
-        j=i+1+k;
-        for(m=i;m<j;m++) //m is the middle index
-            for(p=0;p<n;p++) //n : number of variables
-                for(q=0;q<n;q++)
-                    if(V[i][m][p]==1&&V[m+1][j][q]==1)
-                        for(r=0;r<N;r++)
-                            if(CFG[p][q][r]==1)
-                                V[i][j][r]=1; //add the value, r, in table
-    }
-
-
-for(k=0;k<N;k++){
-    printf("elements \n");
+    for(k=0;k<N;k++)
     for(i=0;i<N-k;i++){
-        printf("(%d %d) {",i,i+k);
-            for(j=0;j<n;j++)
-                if(V[i][i+k][j]==1)
-                    printf(" %c",Var[j]);
-    printf("}\n");
+        printf("(%d,%d)",i,i+k);
+        for(j=0;j<n-2;j++)
+            if(V(i,i+k,j)==1)
+                printf("%c ",Var[j]);
+        printf("\n");
     }
-}
+   
+
+
+
+if(V(0,4,0)==1)
+    printf("accept\n");
+else    
+    printf("reject\n");
 }
