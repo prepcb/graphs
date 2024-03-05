@@ -107,17 +107,17 @@ for(i=0;i<N;i++)
             W[i][j][k]=-1;
 
 
-/*
+
 // This reproduces the whole table
     for(k=0;k<N;k++)
     for(i=0;i<N-k;i++){
         printf("(%d,%d)",i,i+k);
         for(j=0;j<n-2;j++)
-            if(V(i,i+k,j)==1)
+            if(W[i][i+k][j]==1)
                 printf("%c ",Var[j]);
         printf("\n");
     }
- */ 
+  
 
 
 if(V(0,N-1,0)==1)

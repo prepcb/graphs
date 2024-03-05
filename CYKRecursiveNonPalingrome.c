@@ -33,7 +33,7 @@ int CFG[n][n][n]={0};
 int W[N][N][n]={0}; //This table array is used to avoid repeated function calls lines 54 and 55.
 
 
-int s[]={b,a,b,b,a,b,b,a,b}; //trial string
+int s[]={a,a,b,b,a,b,b,a,b}; //trial string
 
 
 
@@ -107,17 +107,8 @@ for(i=0;i<N;i++)
             W[i][j][k]=-1;
 
 
-/*
-// This reproduces the whole table
-    for(k=0;k<N;k++)
-    for(i=0;i<N-k;i++){
-        printf("(%d,%d)",i,i+k);
-        for(j=0;j<n-2;j++)
-            if(V(i,i+k,j)==1)
-                printf("%c ",Var[j]);
-        printf("\n");
-    }
- */ 
+
+
 
 
 if(V(0,N-1,0)==1)
@@ -126,4 +117,15 @@ else
     printf("reject\n");
 
 printf("Number of recursive calls: %d\n", counter);
+
+// This reproduces the table with the start variable,R, at the top
+    for(k=0;k<N;k++)
+    for(i=0;i<N-k;i++){
+        printf("(%d,%d)",i,i+k);
+        for(j=0;j<n-2;j++)
+            if(W[i][i+k][j]==1)
+                printf("%c ",Var[j]);
+        printf("\n");
+    }
+ 
 }
