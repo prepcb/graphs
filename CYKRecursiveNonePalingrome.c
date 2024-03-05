@@ -51,7 +51,7 @@ int V(int i,int j,int k){
                 for(q=0;q<n-2;q++)
                     if(CFG[p][q][k]==1) //check all places in the grammar with an entry
                         for(m=i;m<j;m++){
-                            if(W[i][m][p]<0)W[i][m][p]=V(i,m,p);
+                            if(W[i][m][p]<0)W[i][m][p]=V(i,m,p); //don't do call unnecessarily
                             if(W[m+1][j][q]<0)W[m+1][j][q]=V(m+1,j,q);
                             if(W[i][m][p]==1&&W[m+1][j][q]==1){
                                 W[i][j][k]=1;
@@ -70,6 +70,16 @@ int main(){
 
 // Here we set up the Context Free Grammar productions
 // this cannot be done without Chomsky normal form!
+/*
+Below is the Chomsky normal form of the grammar
+
+R->XRX|S
+S->aTb|bTa
+T->XTX|X|e
+X->a|b
+
+this accepts non palindromes
+*/
 
 CFG[X][Q][R] = 1;  
 CFG[A][Y][R] = 1;  
