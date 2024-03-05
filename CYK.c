@@ -16,6 +16,7 @@ int CFG[n][n][n]={0};
 // V contains the chart of the resulting grammar
 int V[N][N][n]={0};
 
+int counter =0;
 
 int main(){
 
@@ -40,8 +41,10 @@ int i,j,k,m,p,q,r;
 
 for(i=0;i<N;i++)
     for(j=0;j<n;j++)
-        if(CFG[s[i]][s[i]][j]==1)
+        if(CFG[s[i]][s[i]][j]==1){
             V[i][i][j] = 1;  
+            counter++;
+        }
 char Var[4]={'S','A','B','C'}; // used for printing
 
 for(k=0;k<N;k++) //N string length
@@ -52,8 +55,10 @@ for(k=0;k<N;k++) //N string length
                 for(q=0;q<n;q++)
                     if(V[i][m][p]==1&&V[m+1][j][q]==1)
                         for(r=0;r<N;r++)
-                            if(CFG[p][q][r]==1)
+                            if(CFG[p][q][r]==1){
                                 V[i][j][r]=1; //add the value, r, in table
+                                counter++;
+                            }
     }
 
 
@@ -67,4 +72,5 @@ for(k=0;k<N;k++){
     printf("}\n");
     }
 }
+printf("Number of table updates: %d\n", counter);
 }

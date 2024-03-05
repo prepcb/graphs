@@ -10,24 +10,31 @@ The algorithm only finds the first viable path - better than the psuedo code!
 
 
 #include<stdio.h>
-#define n 6 //variables
-#define N 5 //string length
+
+#define n 11 //variables
+#define N 10 //string length
 
 //Variables are given integers
-#define  S  0
+#define  R  0
 #define  A  1
 #define  B  2
 #define  C  3
-#define  a  4
-#define  b  5
+#define  Q  4
+#define  T  5
+#define  X  6
+#define  Y  7
+#define  Z  8
+#define  a  9
+#define  b  10
 
-char Var[] = {'S','A','B','C'}; // for printing purposes
+char Var[] = {'R','A','B','C','Q','T','X','Y','Z'}; // for printing purposes
+
+
 int counter = 0;
 //CFG contains the grammar
 int CFG[n][n][n]={0};
 
-int s[]={b,a,a,b,a}; //trial string
-
+int s[]={b,a,a,a,b,b,a,a,a,b}; //trial string
 int W[N][N][n]={0};
 
 // V contains the chart of the resulting grammar
@@ -68,14 +75,20 @@ int main(){
 // Here we set up the Context Free Grammar productions
 // this cannot be done without Chomsky normal form!
 
-CFG[A][B][S] = 1;   // S -> AB
-CFG[A][B][C] = 1;   // C -> AB
-CFG[B][C][S] = 1;   // S -> BC
-CFG[C][C][B] = 1;   // B -> CC
-CFG[B][A][A] = 1;   // A -> BA
-CFG[a][a][A] = 1;   // A -> a   in fact we only use the first slot; see line 43
-CFG[a][a][C] = 1;   // C -> a                   ""
-CFG[b][b][B] = 1;   // B -> b                   ""
+CFG[A][Q][R] = 1;   //R -> AQ etc
+CFG[T][B][Q] = 1;  
+CFG[B][C][R] = 1;  
+CFG[T][A][C] = 1;  
+CFG[X][Y][R] = 1;  
+CFG[R][X][Y] = 1;  
+CFG[X][Z][T] = 1;   
+CFG[T][X][Z] = 1; 
+CFG[a][a][T] = 1;
+CFG[b][b][T] = 1;
+CFG[a][a][X] = 1;
+CFG[b][b][X] = 1;
+CFG[a][a][A] = 1;
+CFG[b][b][B] = 1;
 
 
 
