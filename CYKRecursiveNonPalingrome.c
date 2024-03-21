@@ -94,7 +94,7 @@ CFG[a][a][T] = 1;
 CFG[b][b][T] = 1;
 CFG[a][a][X] = 1;
 CFG[b][b][X] = 1;
-CFG[a][a][A] = 1;
+CFG[a][a][A] = 1;`
 CFG[b][b][B] = 1;
 
 
